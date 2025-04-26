@@ -17,6 +17,7 @@ import "react-advanced-cropper/dist/style.css";
 import { AuthParams } from "@/types";
 import { AppNameSelector } from "@/components/AppNameSelector";
 import Image from "next/image";
+import { Input } from "../ui/input";
 
 export default function ImageUploader({
   onUploadComplete,
@@ -180,10 +181,9 @@ export default function ImageUploader({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="image">Select Image</Label>
-            <input
+            <Input
               ref={fileInputRef}
               id="image"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               type="file"
               accept="image/*"
               onChange={handleFileChange}
@@ -247,8 +247,7 @@ export default function ImageUploader({
             <>
               <div className="space-y-2">
                 <Label htmlFor="title">Title</Label>
-                <input
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                <Input
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -263,8 +262,7 @@ export default function ImageUploader({
 
               <div className="space-y-2">
                 <Label htmlFor="tags">Tags</Label>
-                <input
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                <Input
                   id="tags"
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}

@@ -13,6 +13,7 @@ import { AuthParams } from "@/types";
 import { toast } from "sonner";
 
 import Image from "next/image";
+import { Input } from "./ui/input";
 
 interface AppNameSelectorProps {
   value: string;
@@ -190,30 +191,22 @@ export const AppNameSelector = ({
 
             {isAddingNewApp && (
               <div className="pt-2 border-t border-border space-y-2">
-                <input
-                  placeholder="New app name"
-                  value={newAppName}
-                  onChange={(e) => setNewAppName(e.target.value)}
-                  disabled={disabled}
-                  className="block w-full text-sm text-gray-500
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-md file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-primary file:text-white
-                  hover:file:bg-primary/90"
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="appname">New App Name</Label>
+                  <Input
+                    name="appname"
+                    placeholder="New app name"
+                    value={newAppName}
+                    onChange={(e) => setNewAppName(e.target.value)}
+                    disabled={disabled}
+                  />
+                </div>
 
-                <input
+                <Input
                   type="file"
                   accept="image/*"
                   ref={fileInputRef}
                   onChange={handleFileChange}
-                  className="block w-full text-sm text-gray-500
-                     file:mr-4 file:py-2 file:px-4
-                     file:rounded-md file:border-0
-                     file:text-sm file:font-semibold
-                     file:bg-primary file:text-white
-                     hover:file:bg-primary/90"
                   disabled={disabled}
                 />
 

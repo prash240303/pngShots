@@ -114,31 +114,36 @@ export default function Home() {
               </Badge>
             )}
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-2">
             {filteredImages.map((image, index) => (
-              <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                <Image
-                  width={300}
-                  height={300}
-                  src={image.url}
-                  alt={image.name || "Image"}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="font-medium">
+              <div
+                key={index}
+                className="rounded-md overflow-hidden border border-gray-200 bg-white hover:shadow-sm transition-all duration-200"
+              >
+                <div className="relative aspect-[5/6] bg-gray-100">
+                  <Image
+                    src={image.url}
+                    alt={image.name || "Image"}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 440px) 50vw, (max-width: 990px) 12vw, 14vw"
+                  />
+                </div>
+
+                <div className="p-1.5">
+                  <h3 className="font-semibold text-gray-800 text-base truncate">
                     {image.customMetadata?.title || "Untitled"}
                   </h3>
+
                   {image.tags && image.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="flex flex-wrap gap-1 mt-1">
                       {image.tags.map((tag: string) => (
-                        <Badge
+                        <span
                           key={tag}
-                          variant="secondary"
-                          className="text-xs"
+                          className="bg-gray-100 px-3 text-gray-500 text-sm font-medium py-1 rounded-full"
                         >
                           {tag}
-                        </Badge>
+                        </span>
                       ))}
                     </div>
                   )}
