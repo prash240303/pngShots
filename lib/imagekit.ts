@@ -4,9 +4,9 @@ import { ImageType } from "@/types";
 import { FileObject } from "imagekit/dist/libs/interfaces";
 
 export const imagekit = new ImageKit({
-  publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY || "public_KPHYZUODp4HYY9V5QhuK7jS8xfo=",
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY || "private_G+O8TQr/uWP8JoobodCtdsTdxYc=",
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/fqtmz3ezc3",
+  publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY || "",
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY || "",
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || "",
 });
 
 export const getAuthenticationParameters = () => {
