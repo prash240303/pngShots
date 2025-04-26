@@ -10,6 +10,7 @@ import { ImageType } from "@/types";
 export default function Home() {
   const [images, setImages] = useState<ImageType[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  console.log("pvt key", process.env.NEXT_PUBLIC_IMAGEKIT_PRIVATE_KEY)
 
   useEffect(() => {
     async function fetchImages() {
