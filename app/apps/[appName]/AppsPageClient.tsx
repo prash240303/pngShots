@@ -103,7 +103,7 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
 
               <div className="flex justify-between items-center mt-4 w-full">
                 <h3 className="text-sm font-semibold text-black truncate">
-                  {image.name}
+                  {image.customMetadata?.title || "undefined"}
                 </h3>
                 <div className="flex items-center gap-1">
                   <svg

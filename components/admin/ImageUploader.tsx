@@ -26,6 +26,7 @@ export default function ImageUploader({
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
+  const [title, setTitle]= useState("")
   const [tags, setTags] = useState<string>("");
   const [app, setApp] = useState<string>("");
   const [uploading, setUploading] = useState(false);
@@ -66,6 +67,7 @@ export default function ImageUploader({
     setFileName("");
     setTags("");
     setApp("");
+    setTitle("");
     setProgress(0);
     setCropping(false);
     if (fileInputRef.current) {
@@ -129,9 +131,14 @@ export default function ImageUploader({
       if (tagsList) {
         formData.append("tags", tagsList);
       }
-      if (app) {
-        formData.append("customMetadata", `{"app":"${app.trim()}"}`);
+      if (app || title) {
+        const metadata = {
+          ...(app && { app: app.trim() }),
+          ...(title && { title }),
+        };
+        formData.append("customMetadata", JSON.stringify(metadata));
       }
+      
 
       setProgress(50);
 
@@ -198,7 +205,7 @@ export default function ImageUploader({
                 }}
                 stencilSize={{
                   width: 300,
-                  height: 500, // 3:5 ratio
+                  height: 500, // 3:5 
                 }}
                 imageRestriction={ImageRestriction.stencil}
               />
@@ -239,13 +246,12 @@ export default function ImageUploader({
           {file && !cropping && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="fileName">File Name</Label>
+                <Label htmlFor="title">Title</Label>
                 <input
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  id="fileName"
-                  value={fileName}
-                  onChange={(e) => setFileName(e.target.value)}
-                  disabled={uploading}
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
 

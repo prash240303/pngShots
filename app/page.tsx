@@ -54,7 +54,10 @@ export default function Home() {
     );
   };
 
-  const groupedEntries = Object.entries(groupedByApp) as [string, ImageType[]][];
+  const groupedEntries = Object.entries(groupedByApp) as [
+    string,
+    ImageType[]
+  ][];
   const sortedGroupedEntries = groupedEntries.sort(([a], [b]) =>
     a.localeCompare(b)
   );
@@ -69,27 +72,26 @@ export default function Home() {
 
   return (
     <div className="container bg-[#FAFAFA] mx-auto py-8">
-      <section className="mb-12 text-center px-4">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
-          Beautiful Image Gallery
-        </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-          Browse images categorized by app or as individual shots.
-        </p>
-      </section>
-
-      <Tabs
-        defaultValue="shots"
-        className="w-full"
-      >
-        <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-          <TabsTrigger value="shots">Shots</TabsTrigger>
-          <TabsTrigger value="apps">Apps</TabsTrigger>
+      <Tabs className="w-full">
+        <TabsList defaultValue="shots" className="flex w-full max-w-xl mx-auto mb-8">
+          <TabsTrigger
+            value="shots"
+            className="px-4 py-2 text-sm font-medium text-gray-800 transition-colors duration-200
+    data-[state=active]:text-gray-900"
+          >
+            Shots
+          </TabsTrigger>
+          <TabsTrigger
+            value="apps"
+            className="px-4 py-2 text-sm font-medium text-gray-800 transition-colors duration-200
+    data-[state=active]:text-gray-900"
+          >
+            Apps
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="shots" className="space-y-4">
           <div className="flex flex-wrap gap-2 mb-6">
-            <div className="text-sm font-medium mr-2 py-1">Filter by tags:</div>
             {allTags.map((tag, index) => (
               <Badge
                 key={index}
@@ -124,7 +126,7 @@ export default function Home() {
                   className="w-full h-64 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="font-medium">{image.name || "Untitled"}</h3>
+                  <h3 className="font-medium">{image.customMetadata?.title || "Untitled"}</h3>
                   {image.tags && image.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
                       {image.tags.map((tag: string) => (

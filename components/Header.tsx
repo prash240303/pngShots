@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
 import { ImageIcon, LayoutDashboard } from "lucide-react";
 
 export default function Header() {
@@ -15,9 +14,9 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
           <ImageIcon className="h-6 w-6" />
-          <span className="font-bold text-xl">Image Gallery</span>
+          <span className="font-bold text-xl">png Shots</span>
         </Link>
-        
+
         <div className="flex items-center space-x-4">
           {isAdmin ? (
             <Button asChild variant="ghost">
@@ -34,7 +33,6 @@ export default function Header() {
               </Link>
             </Button>
           )}
-          <ModeToggle />
         </div>
       </div>
     </header>
