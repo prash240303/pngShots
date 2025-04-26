@@ -72,8 +72,8 @@ export default function Home() {
 
   return (
     <div className="container bg-[#FAFAFA] mx-auto py-8">
-      <Tabs className="w-full">
-        <TabsList defaultValue="shots" className="flex w-full max-w-xl mx-auto mb-8">
+      <Tabs defaultValue="shots" className="w-full">
+        <TabsList className="flex w-full max-w-xl mx-auto mb-8">
           <TabsTrigger
             value="shots"
             className="px-4 py-2 text-sm font-medium text-gray-800 transition-colors duration-200
@@ -126,7 +126,9 @@ export default function Home() {
                   className="w-full h-64 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="font-medium">{image.customMetadata?.title || "Untitled"}</h3>
+                  <h3 className="font-medium">
+                    {image.customMetadata?.title || "Untitled"}
+                  </h3>
                   {image.tags && image.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
                       {image.tags.map((tag: string) => (

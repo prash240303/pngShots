@@ -10,7 +10,8 @@ interface ImageGalleryProps {
 
 export default function AppGallery({ imageList }: ImageGalleryProps) {
   const [thumbnails, setThumbnails] = useState<ImageType[]>([]);
-  console.log("public key", process.env.IMAGEKIT_URL_ENDPOINT)
+  console.log("public key", process.env.IMAGEKIT_URL_ENDPOINT);
+  const [thumbnailsLoading, setThumbnailsLoading] = useState(true);
 
   useEffect(() => {
     const fetchThumbnails = async () => {
@@ -21,6 +22,8 @@ export default function AppGallery({ imageList }: ImageGalleryProps) {
         setThumbnails(thumbnails);
       } catch (error) {
         console.error(error);
+      } finally {
+        setThumbnailsLoading(false); // Whether success or error, loading is over
       }
     };
 
@@ -52,12 +55,14 @@ export default function AppGallery({ imageList }: ImageGalleryProps) {
             >
               <div className="flex flex-col items-center cursor-pointer group transition-all duration-300">
                 <div className="w-24 h-24 rounded-3xl overflow-hidden flex items-center justify-center shadow-md mb-4 border border-gray-200">
-                  {coverImage ? (
+                  {thumbnailsLoading ? (
+                    <div className="animate-pulse bg-gray-200 h-full w-full" />
+                  ) : coverImage ? (
                     <Image
                       src={coverImage.url}
                       alt={appName}
-                      width={300}
-                      height={300}
+                      width={100}
+                      height={100}
                       className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
@@ -66,6 +71,7 @@ export default function AppGallery({ imageList }: ImageGalleryProps) {
                     </div>
                   )}
                 </div>
+
                 <h4 className="text-gray-700 text-xl font-medium truncate max-w-full">
                   {appName}
                 </h4>
