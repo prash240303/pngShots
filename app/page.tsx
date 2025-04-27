@@ -130,23 +130,10 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="p-1.5">
-                  <h3 className="font-semibold text-gray-800 text-base truncate">
+                <div className="p-3">
+                  <h3 className="font-semibold text-gray-800 text-lg">
                     {image.customMetadata?.title || "Untitled"}
                   </h3>
-
-                  {image.tags && image.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {image.tags.map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="bg-gray-100 px-3 text-gray-500 text-sm font-medium py-1 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             ))}

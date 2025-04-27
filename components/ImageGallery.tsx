@@ -10,7 +10,6 @@ interface ImageGalleryProps {
 
 export default function AppGallery({ imageList }: ImageGalleryProps) {
   const [thumbnails, setThumbnails] = useState<ImageType[]>([]);
-  console.log("public key", process.env.IMAGEKIT_URL_ENDPOINT);
   const [thumbnailsLoading, setThumbnailsLoading] = useState(true);
 
   useEffect(() => {
