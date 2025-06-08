@@ -71,7 +71,7 @@ export default function Home() {
   }, {});
 
   return (
-    <div className="container bg-[#FAFAFA] mx-auto py-8">
+    <div className="container bg-[#F5F5F5] mx-auto py-8">
       <Tabs defaultValue="shots" className="w-full">
         <TabsList className="flex w-full max-w-xl mx-auto mb-8">
           <TabsTrigger

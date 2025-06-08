@@ -84,20 +84,17 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
   const appImages = groupedImages[appName] || [];
   console.log("appImages");
   return (
-    <div className="container bg-[#FAFAFA] mx-auto py-8">
-      <div className="flex items-center mb-6">
-        <Link href="/" className="text-blue-600 hover:underline mr-4">
-          ← Back to Apps
-        </Link>
-        <div className="w-14 h-14 rounded-xl overflow-hidden border border-gray-300 shadow-sm mr-4">
+    <div className="container bg-[#F5F5F5] mx-auto py-8">
+      <div className="flex flex-col items-center text-center mb-10">
+        <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-md mb-4">
           {thumbnailsLoading ? (
             <div className="w-full h-full animate-pulse bg-gray-200" />
           ) : appThumbnail ? (
             <Image
               src={appThumbnail.url}
               alt={appName}
-              width={56}
-              height={56}
+              width={80}
+              height={80}
               className="object-cover w-full h-full"
             />
           ) : (
@@ -106,8 +103,20 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
             </div>
           )}
         </div>
-        <h1 className="text-2xl font-bold">{appName}</h1>
-        <span className="ml-2 text-gray-600">({appImages.length} images)</span>
+        <h1 className="text-3xl font-bold">
+          {appName.charAt(0).toUpperCase() + appName.slice(1)}
+        </h1>
+        <div className="mt-2 flex items-center gap-2 text-sm text-gray-600">
+          <span className="bg-gray-200 px-2 py-0.5 rounded-full text-xs font-medium text-gray-800">
+            Apple Design Awards
+          </span>
+          <span className="bg-gray-100 px-2 py-0.5 rounded-full text-xs font-medium text-gray-800">
+            Utilities
+          </span>
+          <span className="text-sm text-gray-500">
+            ({appImages.length} images)
+          </span>
+        </div>
       </div>
 
       {appImages.length === 0 ? (
@@ -119,18 +128,18 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
           {appImages.map((image) => (
             <div
               key={image.fileId}
-              className="rounded-3xl group bg-[#eee] dark:bg-[#111] border border-[#eee] shadow-sm hover:shadow-md transition p-3"
+              className="rounded-3xl group bg-[#FAFAFA] dark:bg-[#111] border border-[#eee] hover:shadow-md transition p-3 pt-2"
             >
-              <div className="w-full flex items-end">
-                <div className="w-14 h-14 rounded-xl overflow-hidden border border-gray-300 shadow-sm mr-4">
+              <div className="w-full mb-2 flex items-center gap-2 justify-end">
+                <div className="w-6 h-6 rounded-sm overflow-hidden border border-gray-300 shadow-sm">
                   {thumbnailsLoading ? (
                     <div className="w-full h-full animate-pulse bg-gray-200" />
                   ) : appThumbnail ? (
                     <Image
                       src={appThumbnail.url}
                       alt={appName}
-                      width={56}
-                      height={56}
+                      width={32}
+                      height={32}
                       className="object-cover w-full h-full"
                     />
                   ) : (
@@ -139,7 +148,9 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
                     </div>
                   )}
                 </div>
-                <div className="text-sm mb-2 text-end pr-2">{appName}</div>
+                <div className="text-sm pr-2">
+                  {appName.charAt(0).toUpperCase() + appName.slice(1)}
+                </div>
               </div>
               <div className="relative bg-white w-full aspect-[3/4]  rounded-xl overflow-hidden flex items-end justify-center">
                 {/* User Image (smaller and pinned to bottom) */}
