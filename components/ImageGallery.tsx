@@ -62,7 +62,7 @@ export default function AppGallery({ imageList }: ImageGalleryProps) {
                       alt={appName}
                       width={100}
                       height={100}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover bg-neutral-50 w-full h-full transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full w-full text-sm text-center px-3 bg-gray-100 text-gray-500">

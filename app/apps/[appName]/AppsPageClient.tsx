@@ -12,6 +12,28 @@ interface AppsPageClientProps {
 
 export function AppsPageClient({ appName }: AppsPageClientProps) {
   const [images, setImages] = useState<ImageType[]>([]);
+  const [thumbnails, setThumbnails] = useState<ImageType[]>([]);
+  const [thumbnailsLoading, setThumbnailsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchThumbnails = async () => {
+      try {
+        const res = await fetch("/api/appthumbnails");
+        if (!res.ok) throw new Error("Failed to fetch thumbnails");
+        const data = await res.json();
+        setThumbnails(data);
+      } catch (err) {
+        console.error("Error fetching thumbnails:", err);
+      } finally {
+        setThumbnailsLoading(false);
+      }
+    };
+    fetchThumbnails();
+  }, []);
+
+  const appThumbnail = thumbnails.find(
+    (thumb) => thumb.customMetadata?.app === appName
+  );
 
   useEffect(() => {
     const fetchInitialImages = async () => {
@@ -32,7 +54,6 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
     };
     fetchInitialImages();
   }, []);
-
 
   // Filter and safely cast the images
   const imageFiles = images.filter((item): item is ImageType => {
@@ -61,13 +82,30 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
   }, {} as Record<string, ImageType[]>);
 
   const appImages = groupedImages[appName] || [];
-
+  console.log("appImages");
   return (
-    <div className="container mx-auto py-8">
+    <div className="container bg-[#FAFAFA] mx-auto py-8">
       <div className="flex items-center mb-6">
         <Link href="/" className="text-blue-600 hover:underline mr-4">
           ← Back to Apps
         </Link>
+        <div className="w-14 h-14 rounded-xl overflow-hidden border border-gray-300 shadow-sm mr-4">
+          {thumbnailsLoading ? (
+            <div className="w-full h-full animate-pulse bg-gray-200" />
+          ) : appThumbnail ? (
+            <Image
+              src={appThumbnail.url}
+              alt={appName}
+              width={56}
+              height={56}
+              className="object-cover w-full h-full"
+            />
+          ) : (
+            <div className="flex items-center justify-center text-xs text-gray-400 bg-gray-100 w-full h-full">
+              No Thumbnail
+            </div>
+          )}
+        </div>
         <h1 className="text-2xl font-bold">{appName}</h1>
         <span className="ml-2 text-gray-600">({appImages.length} images)</span>
       </div>
@@ -77,28 +115,56 @@ export function AppsPageClient({ appName }: AppsPageClientProps) {
           <p className="text-lg text-gray-600">No images found for this app.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {appImages.map((image) => (
             <div
               key={image.fileId}
-              className="rounded-2xl overflow-hidden bg-[#FAFAFA] border border-[#EAEAEA] text-white p-4 flex flex-col items-center justify-center"
+              className="rounded-3xl group bg-[#eee] dark:bg-[#111] border border-[#eee] shadow-sm hover:shadow-md transition p-3"
             >
-              <div className="relative w-full scale-75 border border-red-500 aspect-[2/3] bg-white rounded-xl overflow-hidden">
-                <Image
-                  src={image.url}
-                  alt={image.name}
-                  width={image.width || 300}
-                  height={image.height || 400}
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                <Image
-                  src="/mockup.png"
-                  alt="Phone mockup"
-                  fill
-                  className="object-contain z-10 pointer-events-none"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+              <div className="w-full flex items-end">
+                <div className="w-14 h-14 rounded-xl overflow-hidden border border-gray-300 shadow-sm mr-4">
+                  {thumbnailsLoading ? (
+                    <div className="w-full h-full animate-pulse bg-gray-200" />
+                  ) : appThumbnail ? (
+                    <Image
+                      src={appThumbnail.url}
+                      alt={appName}
+                      width={56}
+                      height={56}
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center text-xs text-gray-400 bg-gray-100 w-full h-full">
+                      No Thumbnail
+                    </div>
+                  )}
+                </div>
+                <div className="text-sm mb-2 text-end pr-2">{appName}</div>
+              </div>
+              <div className="relative bg-white w-full aspect-[3/4]  rounded-xl overflow-hidden flex items-end justify-center">
+                {/* User Image (smaller and pinned to bottom) */}
+                <div className="absolute group-hover:scale-105 duration-300 ease-in-out bottom-0 w-[68%] z-0">
+                  <Image
+                    src={image.url}
+                    alt={image.name}
+                    width={image.width || 300}
+                    height={image.height || 400}
+                    className="object-contain rounded-t-2xl w-full h-auto"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+
+                {/* Phone Mockup (on top) */}
+                <div className="absolute group-hover:scale-105 duration-300 ease-in-out bottom-0 w-[75%] z-10 pointer-events-none">
+                  <Image
+                    src="/mockup.png"
+                    alt="Phone mockup"
+                    width={300}
+                    height={600}
+                    className="object-contain w-full h-auto"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
               </div>
 
               <div className="flex justify-between items-center mt-4 w-full">
