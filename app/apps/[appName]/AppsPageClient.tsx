@@ -1,7 +1,6 @@
 "use client";
 
 import { ImageType } from "@/types";
-import { FileObject } from "imagekit/dist/libs/interfaces";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
