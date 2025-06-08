@@ -56,12 +56,7 @@ export default function ShotsPage() {
     }, new Set<string>())
   );
 
-  const groupedByApp = imageArray.reduce((acc, image) => {
-    const appName = image.customMetadata?.app || "Uncategorized";
-    (acc[appName] ??= []).push(image);
-    return acc;
-  }, {} as Record<string, ImageType[]>);
-
+ 
   const filteredImages =
     selectedTags.length > 0
       ? imageArray.filter((img) =>
@@ -75,21 +70,6 @@ export default function ShotsPage() {
     );
   };
 
-  const groupedEntries = Object.entries(groupedByApp) as [
-    string,
-    ImageType[]
-  ][];
-  const sortedGroupedEntries = groupedEntries.sort(([a], [b]) =>
-    a.localeCompare(b)
-  );
-
-  const groupedByFirstLetter = sortedGroupedEntries.reduce<
-    Record<string, Array<[string, ImageType[]]>>
-  >((groups, [appName, appImages]) => {
-    const firstLetter = appName.charAt(0).toUpperCase();
-    (groups[firstLetter] ??= []).push([appName, appImages]);
-    return groups;
-  }, {});
 
   return (
     <div className="container bg-[#F5F5F5] mx-auto py-4">
